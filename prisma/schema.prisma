@@ -7,7 +7,7 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model user {
+model User {
   id                  String     @id @default(uuid())
   email               String     @unique
   password            String
@@ -16,6 +16,9 @@ model user {
   status              UserStatus @default(ACTIVE)
   createdAt           DateTime   @default(now())
   updatedAt           DateTime   @updatedAt
+  admin               Admin?
+  doctor              Doctor?
+  patient             Patient?
 
   @@map("users")
 }
@@ -29,6 +32,8 @@ model Admin {
   isDeleted     Boolean  @default(false)
   createdAt     DateTime @default(now())
   updatedAt     DateTime @updatedAt
+
+  user User @relation(fields: [email], references: [email])
 
   @@map("admins")
 }
@@ -50,7 +55,24 @@ model Doctor {
   createdAt           DateTime @default(now())
   updatedAt           DateTime @updatedAt
 
+  user User @relation(fields: [email], references: [email])
+
   @@map("doctors")
+}
+
+model Patient {
+  id           String   @id @default(uuid())
+  email        String   @unique
+  name         String
+  profilePhoto String?
+  address      String
+  isDeleted    Boolean  @default(false)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  user User @relation(fields: [email], references: [email])
+
+  @@map("patients")
 }
 
 enum UserRole {
