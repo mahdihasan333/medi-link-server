@@ -8,7 +8,7 @@ const createPatient = async (req: Request) => {
 
   if(req.file){
     const uploadResult = await fileUploader.uploadToCloudinary(req.file);
-    console.log(uploadResult);
+    console.log("Upload Result:", {uploadResult});
   }
 
   // const hashPassword = await bcrypt.hash(req.body.password, 10);
