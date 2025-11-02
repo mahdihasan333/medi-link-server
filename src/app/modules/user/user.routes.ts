@@ -14,6 +14,11 @@ router.post(
         return UserController.createPatient(req, res, next)
     }
 
+
+
+    // create doctor
+    // create admin
+
 )
 
 export const userRoutes = router;
