@@ -27,6 +27,17 @@ const createPatient = async (req: Request) => {
   return result;
 };
 
+const allUserFromDB = async ({page, limit}: {page: number, limit: number}) => {
+  const skip = (page - 1) * limit;
+  console.log(page, limit)
+  const result = await prisma.user.findMany({
+    skip,
+    take: limit
+  });
+  return result;
+}
+
 export const UserService = {
   createPatient,
+  allUserFromDB
 };
