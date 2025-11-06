@@ -46,11 +46,7 @@ const allUserFromDB = async ({page, limit, searchTerm, sortBy, sortOrder, role, 
     },
 
 
-    orderBy: sortBy && sortOrder ? {
-      [sortBy]: sortOrder
-    } : {
-      createdAt: "asc"
-    }
+    
   });
   return result;
 }
