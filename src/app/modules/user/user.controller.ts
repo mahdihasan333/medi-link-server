@@ -18,11 +18,11 @@ const createPatient = catchAsync(async (req: Request, res: Response) => {
 const getAllFromDB = catchAsync(async (req: Request, res: Response) => {
   // page, limit, sortBy, sortOrder - pagination, sorting
   // fields, searchTerm - searching, filtering
+  const filter = pick(req.query, ["status", "role", "email"]);
   const options = pick(req.query, ['page', 'limit', 'sortBy', 'sortOrder']);
 
 
-  const {page, limit, searchTerm, sortBy, sortOrder, role, status} = req.query;
-  const result = await UserService.allUserFromDB({page: Number(page), limit: Number(limit), searchTerm, sortBy, sortOrder, role, status});
+  const result = await UserService.allUserFromDB(filter, options);
 
   sendResponse(res, {
     statusCode: 200,
