@@ -46,19 +46,29 @@ const allUserFromDB = async (params: any, options: any) => {
       }))
     })
   }
+
+  if(Object.keys(filterData).length > 0){
+    andConditions.push({
+      AND: Object.keys(filterData).map(key => ({
+        [key]: {
+          equals: (filterData as any) [key]
+        }
+      }))
+    })
+  }
+
+  console.log(andConditions)
   
   const result = await prisma.user.findMany({
     skip,
-    take: limitNumber,
+    take: limit,
 
     where: {
-      email: {
-        contains: searchTerm,
-        mode: 'insensitive'
-      },
-      status: status,
-      role: role
+      AND: andConditions
     },
+    orderBy:{
+      [sortBy] : sortOrder
+    }
 
 
     orderBy: sortBy && sortOrder ? {
