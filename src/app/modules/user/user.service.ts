@@ -2,6 +2,9 @@ import bcrypt from "bcryptjs";
 import { prisma } from "../../shared/prisma";
 import { Request } from "express";
 import { fileUploader } from "../../helper/fileUploader";
+import { PaginationHelper } from "../../helper/paginationHelper";
+import { Prisma } from "@prisma/client";
+import { userSearchableFields } from "./user.contant";
 
 const createPatient = async (req: Request) => {
 
@@ -28,10 +31,22 @@ const createPatient = async (req: Request) => {
 };
 
 const allUserFromDB = async (params: any, options: any) => {
-  const pageNumber = options.page || 1;
-  const limitNumber = options.limit || 10;
-  const skip = (pageNumber - 1) * limitNumber;
-  console.log(page, limit)
+  const {page, limit, skip, sortBy, sortOrder} = PaginationHelper.calculatePagination(options);
+  const {searchTerm, ...filterData} = params;
+
+  const andConditions: Prisma.UserWhereInput[] = [];
+
+  if(searchTerm) {
+    andConditions.push({
+      OR: userSearchableFields.map(field => ({
+        [field] : {
+          contains: searchTerm,
+          mode: "insensitive"
+        }
+      }))
+    })
+  }
+  
   const result = await prisma.user.findMany({
     skip,
     take: limitNumber,
