@@ -58,29 +58,25 @@ const allUserFromDB = async (params: any, options: any) => {
   }
 
   console.log(andConditions)
-  
+
+  const whereConditions: Prisma.UserWhereInput = andConditions.length > 0 ? {
+    AND: andConditions
+  } : {};
+
   const result = await prisma.user.findMany({
     skip,
     take: limit,
 
-    where: {
-      AND: andConditions
-    },
-    orderBy:{
+    where: whereConditions,
+    orderBy: {
       [sortBy] : sortOrder
     }
+  })
 
-
-    orderBy: sortBy && sortOrder ? {
-      [sortBy]: sortOrder
-    } : {
-      createdAt: "asc"
-    }
-  });
   return result;
 }
 
 export const UserService = {
   createPatient,
   allUserFromDB
-};
+}
