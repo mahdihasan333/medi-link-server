@@ -2,10 +2,11 @@ import express, { NextFunction, Request, Response } from "express";
 import { UserController } from "./user.controller";
 import { fileUploader } from "../../helper/fileUploader";
 import { UserValidation } from "./user.validation";
+import auth from "../../middlewares/auth";
 
 const router = express.Router();
 
-router.get('/', UserController.getAllFromDB)
+router.get('/', auth("ADMIN"), UserController.getAllFromDB)
 
 
 router.post(
