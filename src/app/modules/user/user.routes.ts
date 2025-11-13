@@ -3,10 +3,11 @@ import { UserController } from "./user.controller";
 import { fileUploader } from "../../helper/fileUploader";
 import { UserValidation } from "./user.validation";
 import auth from "../../middlewares/auth";
+import { UserRole } from "@prisma/client";
 
 const router = express.Router();
 
-router.get('/', auth("ADMIN"), UserController.getAllFromDB)
+router.get('/', auth(UserRole.ADMIN), UserController.getAllFromDB)
 
 
 router.post(
