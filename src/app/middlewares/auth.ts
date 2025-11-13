@@ -2,7 +2,11 @@ import { NextFunction, Request, Response } from "express";
 import { JwtHelper } from "../helper/jwtHelper";
 
 const auth = (...roles: string[]) => {
-  async (req: Request & { user?: any }, res: Response, next: NextFunction) => {
+  return async (
+    req: Request & { user?: any },
+    res: Response,
+    next: NextFunction
+  ) => {
     try {
       const token = req.cookies.get("accessToken");
 
