@@ -17,12 +17,12 @@ router.post(
         req.body = UserValidation.createPatientValidationSchema.parse(JSON.parse(req.body.data))
         return UserController.createPatient(req, res, next)
     }
-
-
-
     // create doctor
     // create admin
 
 )
+
+
+
 
 export const userRoutes = router;

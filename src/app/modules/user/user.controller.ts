@@ -62,5 +62,7 @@ const getAllFromDB = catchAsync(async (req: Request, res: Response) => {
 
 export const UserController = {
   createPatient,
-  getAllFromDB
+  getAllFromDB,
+  createAdmin,
+  createDoctor,
 };
