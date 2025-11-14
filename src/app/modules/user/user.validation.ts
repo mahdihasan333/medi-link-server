@@ -1,5 +1,4 @@
 import { Gender } from "@prisma/client";
-import { create } from "domain";
 import z from "zod";
 
 const createPatientValidationSchema = z.object({
