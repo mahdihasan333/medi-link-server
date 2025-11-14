@@ -16,6 +16,17 @@ const createPatient = catchAsync(async (req: Request, res: Response) => {
   });
 });
 
+const createAdmin = catchAsync(async (req: Request, res: Response) => {
+  const result = await UserService.createPatient(req);
+
+  sendResponse(res, {
+    statusCode: 201,
+    success: true,
+    message: "Admin created successfully!",
+    data: result,
+  })
+})
+
 const getAllFromDB = catchAsync(async (req: Request, res: Response) => {
   // page, limit, sortBy, sortOrder - pagination, sorting
   // fields, searchTerm - searching, filtering
