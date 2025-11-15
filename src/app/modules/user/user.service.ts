@@ -3,7 +3,7 @@ import { prisma } from "../../shared/prisma";
 import { Request } from "express";
 import { fileUploader } from "../../helper/fileUploader";
 import { PaginationHelper } from "../../helper/paginationHelper";
-import { Admin, Prisma, UserRole } from "@prisma/client";
+import { Admin, Doctor, Prisma, UserRole } from "@prisma/client";
 import { userSearchableFields } from "./user.contant";
 
 const createPatient = async (req: Request) => {
